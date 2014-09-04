@@ -7,9 +7,14 @@
     <h1>The world of Eternia</h1>
     <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
     <hr />
+    <a href="/">Home</a>
     <a href="/authors">Authors</a>
-    <a href="/authors/new">New Author</a>
+    <a href="/authors/new">New Author</a> -- <a href="/authors/show/:id/edit">Edit author</a>
     <hr />
+    <h4><span style="text-decoration:underline"><%= author.user_name %>'s Info</span></h4>
+    <p><%= author.picture %>
+       <%= author.bio %>
+    </p>
     </div>
   </body>
 </html>

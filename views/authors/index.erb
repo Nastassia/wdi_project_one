@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Ivalice Wiki</title>
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1>The world of Eternia</h1>
+    <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
+    <hr />
+    <a href="/">Home</a>
+    <a href="/authors">Authors</a>
+    <a href="/authors/new">New Author</a>
+    <hr />
+    <h4><span style="text-decoration:underline">Write about the land of Eternia</span></h4>
+    <h3>Authors writing about Eternia</h3>
+    <% authors.each do |author| %>
+    <ul>
+      <li><a href="/authors/show/<%= author.id %>"><%= author.user_name %></a> -- <span style="font-style:italic">human name: </span><%= author.name %></li>
+    </ul>
+    <% end %>
+    </div>
+  </body>
+</html>

@@ -21,3 +21,30 @@ end
 get "/authors/new" do
   erb(:"/authors/new")
 end
+
+post "/authors" do
+  name = params["name"]
+  user_name = params["user_name"]
+  bio = params["bio"]
+  picture = params["picture"]
+  phonenum = params["phoneNum"]
+  email = params["email"]
+
+  new_author = {name: name, user_name: user_name, bio: bio, picture: picture, phonenum: phonenum, email: email}
+
+  Author.create(new_author)
+
+  erb(:"/authors/index", locals: {authors: Author.all()})
+end
+
+get "/authors/show/:id" do
+  author = Author.find_by(id: params["id"])
+
+  erb(:"/authors/show", locals: {author: author})
+end
+
+get "/authors/show/:id/edit" do
+  author = Author.find_by(id: params["id"])
+
+  erb(:"/authors/edit", locals: {author: author})
+end

@@ -7,16 +7,20 @@
     <h1>The world of Eternia</h1>
     <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
     <hr />
+    <a href="/">Home</a>
     <a href="/authors">Authors</a>
-    <a href="/auhtors/new">New Author</a>
     <hr />
-    <h4>Write about the land of Eternia</h4>
+    <h4><span style="text-decoration:underline">Write about the land of Eternia</span></h4>
     <form action="/authors" method="POST">
       <input type="text" name="name" placeholder="Enter your name"><br />
       <input type="text" name="user_name" placeholder="Enter your character name"><br />
       <textarea name="bio" rows="5" cols="30" placeholder="Enter a short bio here about your character."></textarea><br />
-
-      
+      <input type="text" name="picture" placeholder="Enter URL for character pic"><br />
+      <input type="text" name="phoneNum" placeholder="Phone # for sms alerts"><br />
+      <input type="text" name="email" placeholder="Enter your email"><br />
+      <br />
+      <button>Submit</button>
+    </form>
     </div>
   </body>
 </html>
