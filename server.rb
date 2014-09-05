@@ -1,9 +1,10 @@
 require 'sinatra'
 require 'sinatra/reloader'
+# require 'sinatra/activerecord'
 require 'pry'
-require_relative './lib/connection.rb'
+require_relative './db/connection.rb'
 require_relative './lib/author.rb'
-require_relative './lib/missive.rb'
+require_relative './lib/createmissive.rb'
 require_relative './lib/subscriber.rb'
 
 after do
@@ -69,4 +70,8 @@ delete "/authors/:id" do
   author = Author.find_by({id: params["id"]})
   author.destroy
   redirect "/authors"
+end
+
+get "/missives/new" do
+  erb(:"/missives/new", locals: {authors: Author.all()})
 end
