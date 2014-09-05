@@ -9,7 +9,7 @@
     <hr />
     <a href="/">Home</a>
     <a href="/authors">Authors</a>
-    <a href="/authors/new">New Author</a> -- <a href="/authors/show/:id/edit">Edit author</a>
+    <a href="/authors/new">New Author</a> -- <a href="/authors/show/<%= author.id %>/edit">Edit author</a> <a href="/authors/<%= author.id %>"><form action="/authors/<%= author.id %>" method="POST"><input type="hidden" name="_method" value="DELETE"><button>Delete Author</button></form></a>
     <hr />
     <h4><span style="text-decoration:underline"><%= author.user_name %>'s Info</span></h4>
     <p><%= author.picture %>

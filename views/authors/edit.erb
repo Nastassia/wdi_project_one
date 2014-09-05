@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Ivalice Wiki</title>
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1>The world of Eternia</h1>
+    <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
+    <hr />
+    <a href="/">Home</a>
+    <a href="/authors">Authors</a>
+    <hr />
+    <h4>Edit <%= author.name %>'s Profile</h4>
+    <form action="/authors" method="POST">
+      <input type="hidden" name="_method" value="PUT">
+      <input type="text" name="name" placeholder="Enter your name" value="<%= author.name %>"><br />
+      <input type="text" name="user_name" placeholder="Enter your character name" value="<%= author.user_name %>"><br />
+      <textarea name="bio" rows="5" cols="30" placeholder="Enter a short bio here about your character." value="<%= author.bio %>"></textarea><br />
+      <input type="text" name="picture" placeholder="Enter URL for character pic" value="<%= author.picture %>"><br />
+      <input type="text" name="phoneNum" placeholder="Phone # for sms alerts" value="<%= author.phonenum %>"><br />
+      <input type="text" name="email" placeholder="Enter your email" value="<%= author.email %>"><br />
+      <br />
+      <button>Submit</button>
+    </form>
+    </div>
+  </body>
+</html>
