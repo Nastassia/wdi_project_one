@@ -1,10 +1,12 @@
+require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/reloader'
-# require 'sinatra/activerecord'
+require 'sinatra/activerecord'
 require 'pry'
+require 'rubygems'
 require_relative './db/connection.rb'
 require_relative './lib/author.rb'
-require_relative './lib/createmissive.rb'
+require_relative './lib/initmissive.rb'
 require_relative './lib/subscriber.rb'
 
 after do
@@ -74,4 +76,55 @@ end
 
 get "/missives/new" do
   erb(:"/missives/new", locals: {authors: Author.all()})
+end
+
+get "/missives" do
+  missives = InitMissive.all() + EditMissive.all()
+
+  author = Author.all()
+
+  erb(:"/missives/index", locals: {missives: missives})
+end
+
+post "/missives" do
+  if params.include?("initmissive_id")
+    initmissive_id = params["initmissive_id"]
+    title = params["title"]
+    content = params["content"]
+    editor = params["editor_id"]
+
+    edit_missive = {initmissive_id: initmissive_id, title: title, content: content, editor: editor}
+
+    EditMissive.create(edit_missive)
+  else
+    title = params["title"]
+    content = params["content"]
+    author_id = params["author_id"]
+
+    new_missive = {title: title, author_id: author_id, content: content}
+
+    InitMissive.create(new_missive)
+  end
+  missives = InitMissive.all()
+
+  erb(:"/missives/index", locals: {missives: missives})
+end
+
+get "/missives/show/:id" do
+  missive = InitMissive.find_by(id: params["id"]) || missive = EditMissive.find_by(id: params["id"])
+
+  erb(:"/missives/show", locals: { missive: missive})
+end
+
+get "/missives/edit/:id" do
+  missive = InitMissive.find_by(id: params["id"]) || missive = EditMissive.find_by(id: params["id"])
+  authors = Author.all()
+
+  erb(:"/missives/edit", locals: {missive: missive, authors: authors})
+end
+
+delete "/missives/:id" do
+  missive = InitMissive.find_by({id: params["id"]}) || missive = EditMissive.find_by({id: params["id"]})
+  missive.destroy
+  redirect "/missives"
 end

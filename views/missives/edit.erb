@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Ivalice Wiki</title>
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1>The world of Eternia</h1>
+    <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
+    <hr />
+    <a href="/">Home</a>
+    <a href="/missives">View all missives</a>
+    <a href="/missives/new">Write a new Missive</a>
+    <a href="/authors">Authors</a>
+    <a href="/authors/new">New Author</a> --
+    
+    <form action="/missives/<%= missive.id %>" method="POST"><input type="hidden" name="_method" value="DELETE"><button>Delete Missive</button></form><hr />
+    <form action="/missives" method="POST">
+      <input type="hidden" name="initmissive_id" value="<%= missive.id %>">
+      <input type="text" name="title" value="<%= missive.title %>"><br />
+      <textarea name="content" rows="5" cols="30" value="<%= missive.content %>"><%= missive.content %></textarea><br />
+      <select name="editor_id">
+        <% authors.each do |author| %>
+          <option value="<%= author.id %>"><%= author.user_name %></option>
+        <% end %>
+      </select>
+      <br />
+      <button>Submit</button>
+    </form>
+
+    </div>
+  </body>
+</html>

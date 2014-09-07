@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Ivalice Wiki</title>
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1>The world of Eternia</h1>
+    <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
+    <hr />
+    <a href="/">Home</a>
+    <a href="/missives/new">Write a new Missive</a>
+    <a href="/authors">Authors</a>
+    <a href="/authors/new">New Author</a>
+    <hr />
+    <h4><span style="text-decoration:underline">Write about the land of Eternia</span></h4>
+    <h3>Missives about Eternia</h3>
+    <% missives.each do |missive| %>
+    <% author = Author.find_by(id: missive.author_id) %>
+    <ul>
+      <li><a href="/missives/show/<%= missive.id %>"><%= missive.title %></a> -- </li>
+    </ul>
+    <% end %>
+    </div>
+  </body>
+</html>

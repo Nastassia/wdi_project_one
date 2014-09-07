@@ -11,9 +11,9 @@
     <a href="/authors">Authors</a>
     <hr />
     <h4><span style="text-decoration:underline">Missive creation</span></h4>
-    <form action="/authors" method="POST">
+    <form action="/missives" method="POST">
       <input type="text" name="title" placeholder="Wiki title"><br />
-      <textarea name="bio" rows="5" cols="30" placeholder="Enter your Missive."></textarea><br />
+      <textarea name="content" rows="5" cols="30" placeholder="Enter your Missive."></textarea><br />
       <select name="author_id">
         <% authors.each do |author| %>
           <option value="<%= author.id %>"><%= author.user_name %></option>

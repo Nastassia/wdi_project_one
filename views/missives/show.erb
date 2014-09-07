@@ -7,11 +7,13 @@
     <h1>The world of Eternia</h1>
     <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
     <hr />
-    <a href="/missives">View Missives</a>
+    <a href="/">Home</a>
     <a href="/authors">Authors</a>
-    <a href="/authors/new">New Author</a>
-    <a href="/missives/new">New Missive</a>
+    <a href="/missives">Missives</a> --
+    <a href="/missives/edit/<%= missive.id %>">Edit Missive</a>
     <hr />
+    <h4><span style="text-decoration:underline"><%= missive.title %></span></h4>
+      <p><%= missive.content %></p>
     </div>
   </body>
 </html>
