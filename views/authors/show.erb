@@ -15,6 +15,18 @@
     <p><%= author.picture %>
        <%= author.bio %>
     </p>
+    <h4>Authored Missives</h4>
+    <ul>
+      <% initmissives.each do |init| %>
+      <li><a href="/missives/show/<%= init.id %>"><%= init.title %></a>
+      <% end %>
+    </ul>
+    <h4> Edited Missives </h4>
+    <ul>
+    <% editmissives.each do |edit| %>
+    <li><a href="/missives/show/<%= edit.id %>"><%= edit.title %></a>
+    <% end %>
+    </ul>
     </div>
   </body>
 </html>

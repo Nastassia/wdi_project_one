@@ -17,7 +17,9 @@
     <% missives.each do |missive| %>
     <% author = Author.find_by(id: missive.author_id) %>
     <ul>
-      <li><a href="/missives/show/<%= missive.id %>"><%= missive.title %></a> -- </li>
+      <li><a href="/missives/show/<%= missive.id %>&<% if missive.class == InitMissive %><%= missive.id %><% else %>
+      <%= missive.initmissive_id %><% end %>">
+        <%= missive.title %></a> -- </li>
     </ul>
     <% end %>
     </div>

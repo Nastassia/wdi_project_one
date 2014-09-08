@@ -10,12 +10,14 @@
     <a href="/">Home</a>
     <a href="/authors">Authors</a>
     <a href="/missives">Missives</a> --
-    <a href="/missives/versions/<%= missive.id %>&<% if missive.class == InitMissive %><%= missive.id %><% else %>
-    <%= missive.initmissive_id %><% end %>">Past versions of this Missive</a>
-    <a href="/missives/edit/<%= missive.id %>">Edit Missive</a>
     <hr />
-    <h4><span style="text-decoration:underline"><%= missive.title %></span></h4>
+    <h4><span style="text-decoration:underline">Versions</span></h4>
+
+      <% all_missives.each do |missive| %>
+      <% binding.pry %>
+      <h3><%= missive.title %></h3>
       <p><%= missive.content %></p>
+      <% end %>
     </div>
   </body>
 </html>
