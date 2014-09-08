@@ -134,14 +134,14 @@ end
 get "/missives/versions/:id" do
   missive_id = params["id"].split("&")[0]
   init_or_edit_id = params["id"].split("&")[1].to_i.to_s # get rid of leading spaces for second param
-  
+
   all_missives = []
   if EditMissive.find_by(id: init_or_edit_id) == nil
     # that means its an initMissive...
     all_missives << InitMissive.find_by(id: missive_id)
     all_missives << EditMissive.where(initmissive_id: init_or_edit_id)
   else
-    all_missives << EditMissive.find_by(initmissive_id: init_or_edit_id)
+    all_missives << EditMissive.where(initmissive_id: init_or_edit_id)
   end
 
   erb(:"/missives/versions", locals: {all_missives: all_missives})

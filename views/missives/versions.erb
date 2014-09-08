@@ -12,12 +12,12 @@
     <a href="/missives">Missives</a> --
     <hr />
     <h4><span style="text-decoration:underline">Versions</span></h4>
-
-      <% all_missives.each do |missive| %>
-      <% binding.pry %>
-      <h3><%= missive.title %></h3>
-      <p><%= missive.content %></p>
-      <% end %>
+    <!--- this doesn't work
+      <% all_missives.each do |m| %>
+        <%= m[:title] %>
+        <%= m[:content] %>
+        <% end %>
+      -->
     </div>
   </body>
 </html>
