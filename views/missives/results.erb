@@ -1,18 +1,20 @@
 <html>
   <head>
-    <title>Ivalice Wiki</title>
+    <title>Eternia Wiki</title>
   </head>
   <body>
     <div id="wrapper">
     <h1>The world of Eternia</h1>
     <p><span style="font-style:italic">A wiki about the land of Eternia</span></p>
     <hr />
-    <a href="/missives">View Missives</a>
+    <a href="/">Home</a>
     <a href="/authors">Authors</a>
-    <a href="/authors/new">New Author</a>
-    <a href="/missives/new">New Missive</a>
+    <a href="/missives">Missives</a>
     <span style="display:inline;"><form action="/missives/results" method="POST"><input type="text" name="missive_search" placeholder="Search for a Missive here"><button>Submit</button></form></span>
     <hr />
+    <% missives.each do |missive| %>
+    <h4><a href="/missives/show/<%= missive.id %>"><%= missive.title %></a></h4>
+    <% end %>
     </div>
   </body>
 </html>

@@ -16,11 +16,12 @@ after do
 end
 
 get "/" do
+
   erb(:index)
 end
 
 get "/authors" do
-  erb(:"/authors/index", locals: { authors: Author.all() })
+  erb(:"/authors/index")
 end
 
 get "/authors/new" do
@@ -150,6 +151,7 @@ get "/missives/versions/:id" do
 end
 
 post "/missives/subscribe/:id" do
+
   id = params["id"]
   initedit = params["initedit"]
   name = params["name"]
@@ -204,4 +206,22 @@ HTTParty.post(url, {body: params, basic_auth: auth})
  # subscribed_missive = InitMissive.find_by(id: id) || subscribed_missive = EditMissive.find_by(id: id)
 
   erb(:"/missives/subscribed")
+end
+
+post "/missives/results" do
+  all_missives = []
+  all_missives << InitMissive.all().to_a
+  all_missives.concat(EditMissive.all().to_a)
+  query = params["missive_search"]
+  all_missives.flatten
+  missives = []
+  all_missives.flatten.each do |missive|
+
+    # binding.pry
+    if missive["title"].include?(query)
+      missives << missive
+    end
+  end
+
+  erb(:"/missives/results", locals: {missives: missives})
 end
