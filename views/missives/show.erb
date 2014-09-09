@@ -10,6 +10,13 @@
     <a href="/">Home</a>
     <a href="/authors">Authors</a>
     <a href="/missives">Missives</a> --
+    <form action="/missives/subscribe/<%= missive.id %>" method="POST">
+      <input type="hidden" name="<%= missive.id %>" value="<%= missive.id %>">
+      <input type="hidden" name="title" value="<%= missive.title %>">
+      <input type="hidden" name="initedit" value="<%= missive.class %>">
+      <input type="text" name="name" placeholder="Enter your Name">
+      <input type="text" name="email" placeholder="Enter your email to subscribe to this Missive">
+<button>Subscribe to this Missive</button></form>
     <a href="/missives/versions/<%= missive.id %>&<% if missive.class == InitMissive %><%= missive.id %><% else %>
     <%= missive.initmissive_id %><% end %>">Past versions of this Missive</a>
     <a href="/missives/edit/<%= missive.id %>">Edit Missive</a>

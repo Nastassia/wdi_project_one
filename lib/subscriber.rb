@@ -4,4 +4,6 @@ require_relative './initmissive.rb'
 
 class Subscriber < ActiveRecord::Base
 
+
+
 end

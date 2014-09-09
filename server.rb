@@ -4,6 +4,8 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'pry'
 require 'rubygems'
+require 'json'
+require 'HTTParty'
 require_relative './db/connection.rb'
 require_relative './lib/author.rb'
 require_relative './lib/initmissive.rb'
@@ -139,10 +141,67 @@ get "/missives/versions/:id" do
   if EditMissive.find_by(id: init_or_edit_id) == nil
     # that means its an initMissive...
     all_missives << InitMissive.find_by(id: missive_id)
-    all_missives << EditMissive.where(initmissive_id: init_or_edit_id)
+    all_missives.concat(EditMissive.where(initmissive_id: init_or_edit_id).to_a)
   else
-    all_missives << EditMissive.where(initmissive_id: init_or_edit_id)
+    all_missives.concat(EditMissive.where(initmissive_id: init_or_edit_id).to_a)
   end
 
   erb(:"/missives/versions", locals: {all_missives: all_missives})
+end
+
+post "/missives/subscribe/:id" do
+  id = params["id"]
+  initedit = params["initedit"]
+  name = params["name"]
+  title = params["title"]
+  email = params["email"]
+
+  params = {
+    from: "The Eternia Wiki <postmaster@sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org>",
+    to: email,
+    subject: "Greetings from Eternia",
+    text: "Congratulations you've just subscribed to updates for: #{title}"
+}
+
+Subscriber.create({name: name, subscribed_post: id, initedit: initedit, email: email})
+
+url = "https://api.mailgun.net/v2/sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org/messages"
+auth = {:username=>"api", :password=>"key-7f1e23792ed85971de5368c4a92a0e42"}
+
+HTTParty.post(url, {body: params, basic_auth: auth})
+
+  if initedit == "InitMissive"
+    if EditMissive.where(initmissive_id: id)
+      subscriber = Subscriber.find_by(subscribed_post: id)
+      params = {
+        from: "The Eternia Wiki <postmaster@sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org>",
+        to: subscriber["email"],
+        subject: "Greetings from Eternia",
+        text: "Update to Missive: #{title}"
+    }
+    url = "https://api.mailgun.net/v2/sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org/messages"
+    auth = {:username=>"api", :password=>"key-7f1e23792ed85971de5368c4a92a0e42"}
+
+    HTTParty.post(url, {body: params, basic_auth: auth})
+    end
+  else
+    if EditMissive.where(:initmissive_id == id)
+      subscriber = Subscriber.find_by(subscribed_post: id)
+      params = {
+        from: "The Eternia Wiki <postmaster@sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org>",
+        to: subscriber["email"],
+        subject: "Greetings from Eternia",
+        text: "Update to Missive: #{title}"
+      }
+      url = "https://api.mailgun.net/v2/sandbox8e6d73b42a1944319bf616f4f09f722d.mailgun.org/messages"
+      auth = {:username=>"api", :password=>"key-7f1e23792ed85971de5368c4a92a0e42"}
+
+      HTTParty.post(url, {body: params, basic_auth: auth})
+    end
+  end
+
+
+ # subscribed_missive = InitMissive.find_by(id: id) || subscribed_missive = EditMissive.find_by(id: id)
+
+  erb(:"/missives/subscribed")
 end
