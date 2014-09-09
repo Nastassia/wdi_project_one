@@ -142,9 +142,9 @@ get "/missives/versions/:id" do
   if EditMissive.find_by(id: init_or_edit_id) == nil
     # that means its an initMissive...
     all_missives << InitMissive.find_by(id: missive_id)
-    all_missives.concat(EditMissive.where(initmissive_id: init_or_edit_id).to_a)
-  else
-    all_missives.concat(EditMissive.where(initmissive_id: init_or_edit_id).to_a)
+    all_missives.concat(EditMissive.where(:initmissive_id == init_or_edit_id).to_a)
+   else
+    all_missives.concat(EditMissive.where(:initmissive_id == init_or_edit_id).to_a)
   end
 
   erb(:"/missives/versions", locals: {all_missives: all_missives})
