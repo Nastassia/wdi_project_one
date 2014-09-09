@@ -1,6 +1,7 @@
 <html>
   <head>
-    <title>Ivalice Wiki</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Eternia Wiki</title>
   </head>
   <body>
     <div id="wrapper">
@@ -22,7 +23,7 @@
     <a href="/missives/edit/<%= missive.id %>">Edit Missive</a>
     <hr />
     <h4><span style="text-decoration:underline"><%= missive.title %></span></h4>
-      <p><%= missive.content %></p>
+      <p><%= markdown missive.content %></p>
     </div>
   </body>
 </html>

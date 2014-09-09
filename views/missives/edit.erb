@@ -1,6 +1,7 @@
 <html>
   <head>
-    <title>Ivalice Wiki</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Eternia Wiki</title>
   </head>
   <body>
     <div id="wrapper">
@@ -12,7 +13,7 @@
     <a href="/missives/new">Write a new Missive</a>
     <a href="/authors">Authors</a>
     <a href="/authors/new">New Author</a> --
-    
+
     <form action="/missives/<%= missive.id %>" method="POST"><input type="hidden" name="_method" value="DELETE"><button>Delete Missive</button></form><hr />
     <form action="/missives" method="POST">
       <input type="hidden" name="initmissive_id" value="<%= missive.id %>">

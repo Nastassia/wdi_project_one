@@ -6,6 +6,7 @@ require 'pry'
 require 'rubygems'
 require 'json'
 require 'HTTParty'
+require 'rdiscount'
 require_relative './db/connection.rb'
 require_relative './lib/author.rb'
 require_relative './lib/initmissive.rb'
@@ -21,7 +22,7 @@ get "/" do
 end
 
 get "/authors" do
-  erb(:"/authors/index")
+  erb(:"/authors/index", locals: {authors: Author.all()})
 end
 
 get "/authors/new" do
@@ -96,7 +97,7 @@ post "/missives" do
   if params.include?("initmissive_id")
     initmissive_id = params["initmissive_id"]
     title = params["title"]
-    content = params["content"]
+    content = RDiscount.new(params["content"]).to_html
     editor = params["editor_id"]
 
     edit_missive = {initmissive_id: initmissive_id, title: title, content: content, editor: editor}
